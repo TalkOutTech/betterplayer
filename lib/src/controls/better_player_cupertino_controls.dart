@@ -90,8 +90,10 @@ class _BetterPlayerCupertinoControlsState
 
     _wasLoading = isLoading(_latestValue);
     return SafeArea(
-      top: _betterPlayerController?.isFullScreen ?? false,
-      bottom: _betterPlayerController?.isFullScreen ?? false,
+      top: (_betterPlayerController?.isFullScreen ?? false) &&
+          orientation == Orientation.portrait,
+      bottom: (_betterPlayerController?.isFullScreen ?? false) &&
+          orientation == Orientation.portrait,
       child: GestureDetector(
         onTap: () {
           if (BetterPlayerMultipleGestureDetector.of(context) != null) {
