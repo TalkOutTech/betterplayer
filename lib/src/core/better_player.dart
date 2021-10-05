@@ -209,7 +209,7 @@ class _BetterPlayerState extends State<BetterPlayer>
     Animation<double> secondaryAnimation,
   ) {
     final controllerProvider = BetterPlayerControllerProvider(
-        controller: widget.controller, child: _buildPlayer());
+        controller: widget.controller, child: SafeArea(child: _buildPlayer()));
 
     final routePageBuilder = _betterPlayerConfiguration.routePageBuilder;
     if (routePageBuilder == null) {
