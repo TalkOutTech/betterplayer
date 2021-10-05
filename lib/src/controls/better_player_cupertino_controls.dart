@@ -89,50 +89,58 @@ class _BetterPlayerCupertinoControlsState
     const buttonPadding = 10.0;
 
     _wasLoading = isLoading(_latestValue);
-    return GestureDetector(
-      onTap: () {
-        if (BetterPlayerMultipleGestureDetector.of(context) != null) {
-          BetterPlayerMultipleGestureDetector.of(context)!.onTap?.call();
-        }
-        _hideStuff
-            ? cancelAndRestartTimer()
-            : setState(() {
-                _hideStuff = true;
-              });
-      },
-      onDoubleTap: () {
-        if (BetterPlayerMultipleGestureDetector.of(context) != null) {
-          BetterPlayerMultipleGestureDetector.of(context)!.onDoubleTap?.call();
-        }
-        cancelAndRestartTimer();
-        _onPlayPause();
-      },
-      onLongPress: () {
-        if (BetterPlayerMultipleGestureDetector.of(context) != null) {
-          BetterPlayerMultipleGestureDetector.of(context)!.onLongPress?.call();
-        }
-      },
-      child: AbsorbPointer(
-        absorbing: _hideStuff,
-        child: Column(
-          children: <Widget>[
-            _buildTopBar(
-              backgroundColor,
-              iconColor,
-              barHeight,
-              buttonPadding,
-            ),
-            if (_wasLoading)
-              Expanded(child: Center(child: _buildLoadingWidget()))
-            else
-              _buildHitArea(),
-            _buildNextVideoWidget(),
-            _buildBottomBar(
-              backgroundColor,
-              iconColor,
-              barHeight,
-            ),
-          ],
+    return SafeArea(
+      top: _betterPlayerController?.isFullScreen ?? false,
+      bottom: _betterPlayerController?.isFullScreen ?? false,
+      child: GestureDetector(
+        onTap: () {
+          if (BetterPlayerMultipleGestureDetector.of(context) != null) {
+            BetterPlayerMultipleGestureDetector.of(context)!.onTap?.call();
+          }
+          _hideStuff
+              ? cancelAndRestartTimer()
+              : setState(() {
+                  _hideStuff = true;
+                });
+        },
+        onDoubleTap: () {
+          if (BetterPlayerMultipleGestureDetector.of(context) != null) {
+            BetterPlayerMultipleGestureDetector.of(context)!
+                .onDoubleTap
+                ?.call();
+          }
+          cancelAndRestartTimer();
+          _onPlayPause();
+        },
+        onLongPress: () {
+          if (BetterPlayerMultipleGestureDetector.of(context) != null) {
+            BetterPlayerMultipleGestureDetector.of(context)!
+                .onLongPress
+                ?.call();
+          }
+        },
+        child: AbsorbPointer(
+          absorbing: _hideStuff,
+          child: Column(
+            children: <Widget>[
+              _buildTopBar(
+                backgroundColor,
+                iconColor,
+                barHeight,
+                buttonPadding,
+              ),
+              if (_wasLoading)
+                Expanded(child: Center(child: _buildLoadingWidget()))
+              else
+                _buildHitArea(),
+              _buildNextVideoWidget(),
+              _buildBottomBar(
+                backgroundColor,
+                iconColor,
+                barHeight,
+              ),
+            ],
+          ),
         ),
       ),
     );
