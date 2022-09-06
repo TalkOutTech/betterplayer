@@ -5,6 +5,7 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:better_player/src/configuration/better_player_buffering_configuration.dart';
 import 'package:better_player/src/video_player/video_player_platform_interface.dart';
 import 'package:flutter/material.dart';
@@ -20,20 +21,20 @@ final VideoPlayerPlatform _videoPlayerPlatform = VideoPlayerPlatform.instance
 class VideoPlayerValue {
   /// Constructs a video with the given values. Only [duration] is required. The
   /// rest will initialize with default values when unset.
-  VideoPlayerValue({
-    required this.duration,
-    this.size,
-    this.position = const Duration(),
-    this.absolutePosition,
-    this.buffered = const <DurationRange>[],
-    this.isPlaying = false,
-    this.isLooping = false,
-    this.isBuffering = false,
-    this.volume = 1.0,
-    this.speed = 1.0,
-    this.errorDescription,
-    this.isPip = false,
-  });
+  VideoPlayerValue(
+      {required this.duration,
+      this.size,
+      this.position = const Duration(),
+      this.absolutePosition,
+      this.buffered = const <DurationRange>[],
+      this.isPlaying = false,
+      this.isLooping = false,
+      this.isBuffering = false,
+      this.volume = 1.0,
+      this.speed = 1.0,
+      this.errorDescription,
+      this.isPip = false,
+      this.rotationDegrees});
 
   /// Returns an instance with a `null` [Duration].
   VideoPlayerValue.uninitialized() : this(duration: null);
@@ -47,6 +48,9 @@ class VideoPlayerValue {
   ///
   /// Is null when [initialized] is false.
   final Duration? duration;
+
+  /// Is null when [initialized] is false.
+  final double? rotationDegrees;
 
   /// The current playback position.
   final Duration position;
@@ -122,6 +126,7 @@ class VideoPlayerValue {
     String? errorDescription,
     double? speed,
     bool? isPip,
+    double? rotationDegrees,
   }) {
     return VideoPlayerValue(
       duration: duration ?? this.duration,
@@ -136,6 +141,7 @@ class VideoPlayerValue {
       speed: speed ?? this.speed,
       errorDescription: errorDescription ?? this.errorDescription,
       isPip: isPip ?? this.isPip,
+      rotationDegrees: rotationDegrees ?? this.rotationDegrees,
     );
   }
 
@@ -217,6 +223,7 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
           value = value.copyWith(
             duration: event.duration,
             size: event.size,
+            rotationDegrees: event.rotationDegrees,
           );
           _initializingCompleter.complete(null);
           _applyPlayPause();

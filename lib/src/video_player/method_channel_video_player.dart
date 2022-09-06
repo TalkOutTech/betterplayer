@@ -332,6 +332,7 @@ class MethodChannelVideoPlayer extends VideoPlayerPlatform {
         case 'initialized':
           double width = 0;
           double height = 0;
+          double rotationDegrees = 0;
 
           try {
             if (map.containsKey("width")) {
@@ -341,6 +342,10 @@ class MethodChannelVideoPlayer extends VideoPlayerPlatform {
             if (map.containsKey("height")) {
               final num heightNum = map["height"] as num;
               height = heightNum.toDouble();
+            }
+            if (map.containsKey("rotationDegrees")) {
+              final num rotationDegreesNum = map["rotationDegrees"] as num;
+              rotationDegrees = rotationDegreesNum.toDouble();
             }
           } catch (exception) {
             BetterPlayerUtils.log(exception.toString());
@@ -352,6 +357,7 @@ class MethodChannelVideoPlayer extends VideoPlayerPlatform {
             eventType: VideoEventType.initialized,
             key: key,
             duration: Duration(milliseconds: map['duration'] as int),
+            rotationDegrees: rotationDegrees,
             size: size,
           );
         case 'completed':

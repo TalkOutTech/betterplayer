@@ -376,6 +376,7 @@ class VideoEvent {
     required this.eventType,
     required this.key,
     this.duration,
+    this.rotationDegrees,
     this.size,
     this.buffered,
     this.position,
@@ -393,6 +394,9 @@ class VideoEvent {
   ///
   /// Only used if [eventType] is [VideoEventType.initialized].
   final Duration? duration;
+
+  /// Only used if [eventType] is [VideoEventType.initialized].
+  final double? rotationDegrees;
 
   /// Size of the video.
   ///
