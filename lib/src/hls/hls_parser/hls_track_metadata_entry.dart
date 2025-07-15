@@ -1,6 +1,5 @@
 import 'package:better_player/src/hls/hls_parser/variant_info.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/rendering.dart';
 
 class HlsTrackMetadataEntry {
   HlsTrackMetadataEntry({this.groupId, this.name, this.variantInfos});
@@ -17,6 +16,7 @@ class HlsTrackMetadataEntry {
   final List<VariantInfo>? variantInfos;
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other is HlsTrackMetadataEntry) {
       return other.groupId == groupId &&
@@ -28,5 +28,5 @@ class HlsTrackMetadataEntry {
   }
 
   @override
-  int get hashCode => hashValues(groupId, name, variantInfos);
+  int get hashCode => Object.hash(groupId, name, variantInfos);
 }

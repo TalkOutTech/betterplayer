@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class VariantInfo {
   VariantInfo({
     this.bitrate,
@@ -29,6 +27,7 @@ class VariantInfo {
   final String? captionGroupId;
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other is VariantInfo) {
       return other.bitrate == bitrate &&
@@ -41,6 +40,6 @@ class VariantInfo {
   }
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
       bitrate, videoGroupId, audioGroupId, subtitleGroupId, captionGroupId);
 }

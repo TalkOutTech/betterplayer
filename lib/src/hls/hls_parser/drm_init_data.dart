@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'scheme_data.dart';
 
@@ -10,6 +9,7 @@ class DrmInitData {
   final String? schemeType;
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other is DrmInitData) {
       return schemeType == other.schemeType &&
@@ -19,5 +19,5 @@ class DrmInitData {
   }
 
   @override
-  int get hashCode => hashValues(schemeType, schemeData);
+  int get hashCode => Object.hash(schemeType, schemeData);
 }
