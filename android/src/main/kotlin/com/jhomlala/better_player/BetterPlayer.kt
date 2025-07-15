@@ -603,6 +603,10 @@ internal class BetterPlayer(
                     width = exoPlayer.videoFormat?.height
                     height = exoPlayer.videoFormat?.width
                 }
+                if(rotationDegrees == 180) {
+                    event["rotationDegrees"] = rotationDegrees
+                }
+                
                 event["width"] = width
                 event["height"] = height
             }
